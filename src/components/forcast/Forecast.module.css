@@ -1,0 +1,42 @@
+.weather_screen {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(100, 98, 98, 0.397);
+    padding: 1rem 0.5rem;
+}
+
+.weatherSearch_div {
+    display: flex;
+    gap: 1rem;
+}
+
+.weatherSearch_div>input {
+    padding: 0 1.2rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.weather__icon {
+    background-color: rgba(164, 166, 166, 0.577);
+    border-radius: 4vw;
+    padding: 0.7rem;
+    font-size: 1.5rem;
+}
+
+.weather_screenDiv {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    margin-top: 3rem;
+    text-decoration: underline;
+}
+
+.weatherOf_place {
+    display: flex;
+}
+
+.weatherOf_place > h3 {
+    margin-top: 0.7rem;
+    padding: 0.5rem;
+}
