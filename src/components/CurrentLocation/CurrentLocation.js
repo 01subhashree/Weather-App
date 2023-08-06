@@ -5,6 +5,7 @@ import { BaseURL, API_KEY } from "../../utility/ApiKey";
 import dateBuilder from "../../utility/DateBuilder";
 import Clock from "react-live-clock";
 import loader from "../../utility/images/foggy.gif";
+import style from "./CurrentLocation.module.css";
 
 export default function CurrentLocation() {
   const [weather, setWeather] = useState("");
@@ -43,18 +44,32 @@ export default function CurrentLocation() {
   console.log(weather);
 
   return (
-    <div>
+    <div className={style.CurrentLocation_div}>
       {temperatureC ? (
-        <div>
-          <h1>{cityName}</h1>
-          <h3>{country}</h3>
-          <Clock format="HH:mm:ss" interval={1000} ticking={true} />
-          <div className="current-date">{dateBuilder(new Date())}</div>
+        <div className={style.CurrentLocation_container}>
+          <div className={style.CurrentLocation__screen}>
+            <div className={style.CurrentLocationscreen__place}>
+              <h1>{cityName}</h1>
+              <h3>{country}</h3>
+            </div>
+            <div className={style.CurrentLocationscreen__div2}>
+              <div className={style.CurrentLocationscreen__time}>
+                <Clock
+                  format="HH:mm:ss"
+                  interval={1000}
+                  ticking={true}
+                  style={{ fontSize: "3rem" }}
+                />
+                <div className="current-date">{dateBuilder(new Date())}</div>
+              </div>
+              <p>{temperatureC}°c</p>
+            </div>
+          </div>
           <Forecast weather={WeatherData?.main} code={WeatherData?.icon} />
         </div>
       ) : (
-        <div>
-          <img src={loader} alt="weather loader" />
+        <div className={style.CurrentLocation__loaderScreen}>
+          <img src={loader} alt="weather loader" style={{ width: "50%" }} />
           <h3>Detecting your location</h3>
           <h3>
             Your current location wil be displayed on the App <br></br> & used

@@ -7,7 +7,7 @@ import style from "./Forecast.module.css";
 
 const defaults = {
   color: "white",
-  size: 112,
+  size: 114,
   animate: true,
 };
 
@@ -48,7 +48,7 @@ export default function Forecast(props) {
 
   return (
     <div className={style.weather_screen}>
-      <div className="forecast-icon">
+      <div>
         <ReactAnimatedWeather
           icon={codeMapping[props.code]}
           color={defaults.color}
@@ -56,6 +56,7 @@ export default function Forecast(props) {
           animate={defaults.animate}
         />
       </div>
+      <p className={style.currentCity__weather}>{props.weather}</p>
       <div className={style.weatherSearch_div}>
         <input
           placeholder="Search any city"
@@ -68,13 +69,13 @@ export default function Forecast(props) {
       </div>
 
       <div className={style.weather_screenDiv}>
-        <h1>{props.weather}</h1>
         {weather && weather.data && (
           <div>
+            <p>
+              {weather.data.name},{weather.data.sys.country}
+            </p>
             <div className={style.weatherOf_place}>
-              <h3>
-                {weather.data.name},{weather.data.sys.country}
-              </h3>
+              {weather.data.weather[0].main}
               <img
                 className={style.weather_img}
                 src={`https://openweathermap.org/img/wn/${weather.data.weather[0].icon}.png`}
