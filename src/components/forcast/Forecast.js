@@ -2,12 +2,40 @@ import React, { useState } from "react";
 import { ImSearch } from "react-icons/im";
 import { API_KEY, BaseURL } from "../../utility/ApiKey";
 import axios from "axios";
+import ReactAnimatedWeather from "react-animated-weather";
 import style from "./Forecast.module.css";
 
-export default function Forecast() {
+const defaults = {
+  color: "white",
+  size: 112,
+  animate: true,
+};
+
+export default function Forecast(props) {
   // const base_url = https://openweathermap.org/img/wn/${data_coming_from_API}@2x.png
   const [location, setLocation] = useState("");
   const [weather, setWeather] = useState("");
+
+  let codeMapping = {
+    "01d": "CLEAR_DAY",
+    "01n": "CLEAR_NIGHT",
+    "02d": "PARTLY_CLOUDY_DAY",
+    "02n": "PARTLY_CLOUDY_NIGHT",
+    "03d": "PARTLY_CLOUDY_DAY",
+    "03n": "PARTLY_CLOUDY_NIGHT",
+    "04d": "CLOUDY",
+    "04n": "CLOUDY",
+    "09d": "RAIN",
+    "09n": "RAIN",
+    "10d": "RAIN",
+    "10n": "RAIN",
+    "11d": "RAIN",
+    "11n": "RAIN",
+    "13d": "SNOW",
+    "13n": "SNOW",
+    "50d": "FOG",
+    "50n": "FOG",
+  };
 
   const getWeather = () => {
     axios
@@ -18,10 +46,16 @@ export default function Forecast() {
     setLocation("");
   };
 
-  console.log(weather);
-
   return (
     <div className={style.weather_screen}>
+      <div className="forecast-icon">
+        <ReactAnimatedWeather
+          icon={codeMapping[props.code]}
+          color={defaults.color}
+          size={defaults.size}
+          animate={defaults.animate}
+        />
+      </div>
       <div className={style.weatherSearch_div}>
         <input
           placeholder="Search any city"
@@ -32,10 +66,11 @@ export default function Forecast() {
           <ImSearch onClick={getWeather} />
         </div>
       </div>
+
       <div className={style.weather_screenDiv}>
+        <h1>{props.weather}</h1>
         {weather && weather.data && (
           <div>
-            <h1>{weather.data.weather[0].main}</h1>
             <div className={style.weatherOf_place}>
               <h3>
                 {weather.data.name},{weather.data.sys.country}
