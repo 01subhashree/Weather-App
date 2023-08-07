@@ -1,8 +1,11 @@
 # Getting Started with Create React App
 
-This project was a React-Weather App for desktop and Tablet .You can track live weather of your current location and by searching any city.
+This project was a React-Weather App for desktop and Tablet . <br/>
+You can track live weather of your current location and by searching any city.
 
 # Deploy link
+
+https://weather-app-gamma-ten-39.vercel.app/
 
 # how to start
 
