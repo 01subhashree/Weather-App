@@ -31,15 +31,60 @@
     padding-left: 1.5rem;
     padding-right: 0.3rem;
 }
+
 .CurrentLocationscreen__time{
     font-size: 1.3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 0.5rem;
 }
 
 .CurrentLocationscreen__div2 > p {
     font-size: 7rem;
     
+}
+.CurrentLocationscreen__timeClock{
+    font-size: 3rem;
+}
+.CurrentLocation__loaderScreen{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+
+@media screen and (max-width: 1000px){
+
+    .CurrentLocationscreen__time{
+        gap: 0.2rem;
+    }
+    .CurrentLocationscreen__div2 > p {
+        font-size: 4rem;
+    }
+
+    .CurrentLocationscreen__timeClock{
+        font-size: 2rem;
+    }
+
+}
+
+@media screen and (max-width: 800px){
+
+    .CurrentLocationscreen__place{
+        font-size: 1rem;
+    }
+
+    .CurrentLocationscreen__time{
+        font-size: 1.2rem;
+    }
+    .CurrentLocationscreen__timeClock{
+        font-size: 1.3rem;
+    }
+    .CurrentLocationscreen__div2 > p {
+        font-size: 3rem;
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImSearch } from "react-icons/im";
 import { API_KEY, BaseURL } from "../../utility/ApiKey";
 import axios from "axios";
@@ -13,8 +13,9 @@ const defaults = {
 
 export default function Forecast(props) {
   // const base_url = https://openweathermap.org/img/wn/${data_coming_from_API}@2x.png
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Delhi");
   const [weather, setWeather] = useState("");
+  const [error, setError] = useState("");
 
   let codeMapping = {
     "01d": "CLEAR_DAY",
@@ -37,14 +38,27 @@ export default function Forecast(props) {
     "50n": "FOG",
   };
 
+  useEffect(() => {
+    getWeather();
+  }, []);
+
   const getWeather = () => {
     axios
       .get(`${BaseURL}weather?q=${location}&appid=${API_KEY}`)
-      .then((res) => setWeather(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setWeather(res.data);
+        setError("");
+        console.log(res.data);
+      })
+      .catch(function (err) {
+        console.log(err);
+        setError({ message: "Not Found", location: location });
+      });
 
     setLocation("");
   };
+
+  console.log(error);
 
   return (
     <div className={style.weather_screen}>
@@ -64,34 +78,39 @@ export default function Forecast(props) {
           onChange={(e) => setLocation(e.target.value)}
         />
         <div className={style.weather__icon}>
-          <ImSearch onClick={getWeather} />
+          <ImSearch onClick={() => getWeather(location)} />
         </div>
       </div>
-
-      <div className={style.weather_screenDiv}>
-        {weather && weather.data && (
-          <div>
-            <p>
-              {weather.data.name},{weather.data.sys.country}
-            </p>
-            <div className={style.weatherOf_place}>
-              {weather.data.weather[0].main}
-              <img
-                className={style.weather_img}
-                src={`https://openweathermap.org/img/wn/${weather.data.weather[0].icon}.png`}
-                alt="WeatherIcon"
-              />
+      {error && error.location !== "" ? (
+        <h1 style={{ marginTop: "2rem" }}>
+          {error.location} {error.message}
+        </h1>
+      ) : (
+        <div className={style.weather_screenDiv}>
+          {weather.main && (
+            <div>
+              <p>
+                {weather.name},{weather.sys.country}
+              </p>
+              <div className={style.weatherOf_place}>
+                {weather.weather[0].main}
+                <img
+                  className={style.weather_img}
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
+                  alt="WeatherIcon"
+                />
+              </div>
+              <p>
+                Temperature {Math.round(Number(weather.main.temp) - 273.15)}
+                °c
+              </p>
+              <p>Humidity {weather.main.humidity}%</p>
+              <p>Visibility {weather.visibility} ml</p>
+              <p>Wind Speed {weather.wind.speed} Km/h</p>
             </div>
-            <p>
-              Temperature {Math.round(Number(weather.data.main.temp) - 273.15)}
-              °c
-            </p>
-            <p>Humidity {weather.data.main.humidity}%</p>
-            <p>Visibility {weather.data.visibility} ml</p>
-            <p>Wind Speed {weather.data.wind.speed} Km/h</p>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

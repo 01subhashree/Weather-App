@@ -58,9 +58,9 @@ export default function CurrentLocation() {
                   format="HH:mm:ss"
                   interval={1000}
                   ticking={true}
-                  style={{ fontSize: "3rem" }}
+                  className={style.CurrentLocationscreen__timeClock}
                 />
-                <div className="current-date">{dateBuilder(new Date())}</div>
+                <div>{dateBuilder(new Date())}</div>
               </div>
               <p>{temperatureC}°c</p>
             </div>
@@ -69,12 +69,12 @@ export default function CurrentLocation() {
         </div>
       ) : (
         <div className={style.CurrentLocation__loaderScreen}>
-          <img src={loader} alt="weather loader" style={{ width: "50%" }} />
-          <h3>Detecting your location</h3>
-          <h3>
-            Your current location wil be displayed on the App <br></br> & used
-            for calculating Real time weather.
-          </h3>
+          <img src={loader} alt="weather loader" style={{ width: "20%" }} />
+          <h2>Detecting your location</h2>
+          <h4>
+            Your current location wil be displayed on the App & used for
+            calculating Real time weather.
+          </h4>
         </div>
       )}
     </div>
