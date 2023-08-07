@@ -15,4 +15,4 @@ At last to start the project write "npm start" in terminal.
 
 # How the project going to look
 
-<img src="./public/Screenshot 2023-08-07 131332.png" alt="weather app"/>
+![Screenshot 2023-08-07 131332](https://github.com/01subhashree/Weather-App/assets/121716043/4c458b57-abd5-4031-9152-aed42dd86f50)
